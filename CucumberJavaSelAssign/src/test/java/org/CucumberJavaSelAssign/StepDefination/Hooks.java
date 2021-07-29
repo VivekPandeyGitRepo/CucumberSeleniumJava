@@ -15,8 +15,19 @@ import io.cucumber.java.After;
 
 public class Hooks {
 
-	public static WebDriver driver = new DriverSelector().get_Driver_instance();
+	public static WebDriver driver ;
 	Logger logger = Logger.getLogger(Hooks.class.getName());
+
+	
+	@Before
+	public WebDriver getBrowserlaunch (Scenario scenario) throws InterruptedException {
+		
+		if(scenario.getName() != null) {
+		driver = new DriverSelector().get_Driver_instance();
+		}
+		return driver;
+		
+	}
 
 	@After
 
@@ -45,6 +56,7 @@ public class Hooks {
 				System.err.println(somDriverException.getMessage());
 			}
 		}
+		driver.close();
 	}
 
 
